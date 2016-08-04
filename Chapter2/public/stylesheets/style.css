@@ -1,0 +1,13 @@
+#messages{
+    height: 100%;
+    overflow: auto;
+    border-right: 1px solid #000000
+}
+
+#message-content{
+    margin-left: 20px;
+}
+
+#userNameContent{
+    font-size: 18px;
+}
