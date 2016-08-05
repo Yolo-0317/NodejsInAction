@@ -12,11 +12,18 @@ channel.on('join',function (id, client) {
     this.clients[id] = client;
     this.subscriptions[id] = function (senderId, message) {
         if(id != senderId){
-            console.log(message);
             this.clients[id].write(message);
         }
     };
+    var welcome = "Welcome!\n" + "Guests online " + this.listeners('broadcast').length;
+    client.write(welcome + '\n');
     this.on('broadcast', this.subscriptions[id]);
+});
+
+//当有用户离开时,通知其他用户
+channel.on('leave',function (id) {
+   channel.removeListener('broadcast',this.subscriptions[id]);
+    channel.emit('broadcast',id, id + "has left the chat.\n");
 });
 
 var server = net.createServer(function (client) {
@@ -27,6 +34,9 @@ var server = net.createServer(function (client) {
     client.on('data', function (data) {
         var data = data.toString();
         channel.emit('broadcast', id, data);
+    });
+    client.on('close',function () {
+        channel.emit('leave',id);
     })
 });
 
