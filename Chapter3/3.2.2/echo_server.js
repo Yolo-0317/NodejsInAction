@@ -4,9 +4,9 @@
 var net = require("net");
 
 var server = net.createServer(function (socket) {
-    socket.on('connect',function (client) {
-        console.log(client);
-    });
+    // socket.on('connect',function (client) {
+        console.log("client");
+    // });
     socket.on('data',function (data) {
         console.log(data.toString());
         socket.write(data);
