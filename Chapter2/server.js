@@ -32,6 +32,7 @@ function serveStatic(response, cache, absPath) {
         fs.exists(absPath, function (exists) {
             if(exists){
                 fs.readFile(absPath, function (err, data) {
+                    console.log('readFile');
                     if(err){
                         send404(response);
                     }else {

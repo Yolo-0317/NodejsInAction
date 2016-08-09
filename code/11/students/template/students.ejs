@@ -1,0 +1,7 @@
+<% if (students.length) { %>
+  <ul>
+    <% students.forEach(function(student) { %>
+      <li><%= student.name %> (<%= student.age %>)</li>
+    <% }) %>
+  </ul>
+<% } %>

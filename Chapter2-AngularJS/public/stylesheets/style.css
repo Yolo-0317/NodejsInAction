@@ -1,0 +1,74 @@
+#messages{
+    height: 100%;
+    overflow: auto;
+    border-right: 1px solid #000000
+}
+.receiveMsgContainer div:first-child{
+    float: left;
+}
+.receiveMsgContainer div:last-child{
+    position: relative;
+    float: left;
+    background:#ECEAF1;
+    font-size:14px;
+    padding: 15px 5px;
+    margin: 10px 0 0 20px;
+    color:#000000;
+    border-radius: 10px;
+    width: auto;
+    word-wrap:break-word;
+    word-break:break-all;
+}
+.myMsgContainer div:first-child{
+    float: right;
+    /*margin-top: 15px;*/
+}
+.myMsgContainer div:last-child{
+    position:relative;
+    float: right;
+    background:#075698;
+    font-size:14px;
+    padding: 10px 5px;
+    margin:10px 20px 0 15px;
+    color:#ffffff;
+    border-radius: 10px;
+    width: auto;
+    word-wrap:break-word;
+    word-break:break-all;
+}
+
+.userNameContent{
+    font-size: 18px;
+}
+
+/*----聊天气泡-----*/
+.myMsgContainer div:last-child:after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-width: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-width: 10px;
+    border-bottom-color: currentColor;
+    border-radius: 0 0 32px 0;
+    color: #075698;
+}
+.receiveMsgContainer div:last-child:after {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-width: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-width: 10px;
+    border-bottom-color: currentColor;
+    border-radius: 0 0 0 32px;
+    color: #ECEAF1;
+}

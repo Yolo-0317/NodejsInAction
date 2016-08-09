@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="nodeChat">
+<head>
+    <meta charset="UTF-8">
+    <title>chatNodeDemo</title>
+    <link rel="stylesheet" href="stylesheets/style.css"/>
+    <link rel="stylesheet" href="stylesheets/bootstrap/css/bootstrap.css"/>
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="javascripts/chatUiServer.js"></script>
+</head>
+<body ng-controller="mainCtrl as vm">
+    <h2 class="text-center">Node & SocketIO 聊天室</h2>
+    <div class="container">
+        <!--显示当前聊天室名称的 div-->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div id="room">
+                    {{vm.systemInfo.roomName}}
+                </div>
+            </div>
+            <div class="panel-body bg-info" style="height: 400px">
+                <!--显示聊天消息的 -->
+                <div class="col-md-10" id="messages" auto-scroll messages="vm.chatInfo.messages">
+                    <span>欢迎{{vm.systemInfo.userName}}进入{{vm.systemInfo.roomName}}</span>
+                    <br/>
+                    <span>{{vm.systemInfo.nameChangeInfo}}</span>
+                    <div ng-repeat="message in vm.chatInfo.messages" class="clearfix">
+                        <div style="width: 400px" id="message{{$index}}"
+                            ng-class = "{'pull-right': message.myMsg,
+                                        receiveMsgContainer: message.chatMsg, myMsgContainer: message.myMsg}">
+                            <div class="userNameContent" ng-if="message.nickName">
+                                {{message.nickName}}
+                            </div>
+                            <div ng-if="message.text">
+                                {{message.text}}
+                            </div>
+                        </div>
+                        <div ng-if="message.systemMessage" class="text-center">
+                            <!--系统信息:-->
+                            {{message.systemMessage}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <!--显示当前可用聊天室列表的 div-->
+                    <h4 class="text-success">聊天室</h4>
+                    <div id="room-list">
+                        <div ng-repeat="roomName in vm.systemInfo.roomList"
+                                ng-click="vm.turnToRoom('/join ' + roomName)" style="cursor: pointer">
+                            {{roomName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <!--用户用来输入聊天命令和消息的表单输入元素-->
+                <form id="send-form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <textarea id="send-message" class="form-control" ng-model="vm.chatInfo.userInput"
+                             auto-focus></textarea>
+                            <br/>
+                            <input id="send-button" type="submit" ng-click="vm.sendMessage(vm.chatInfo.userInput)"
+                                   class="btn btn-primary pull-right" value="Send">
+                        </div>
+                        <div class="col-md-4">
+                            <div id="help">
+                                输入以下命令
+                                <ul>
+                                    <li>修改昵称命令: <code>/nick [username]</code></li>
+                                    <li>新建聊天房间: <code>/join [room name]</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+</body>
+</html>
